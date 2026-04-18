@@ -1,0 +1,13 @@
+{
+  "name": "autosure-resume",
+  "version": "0.1.0",
+  "description": "Bounded auto-resume plugin for OpenClaw with circuit breaker and dedupe.",
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ]
+  },
+  "license": "MIT",
+  "main": "index.js"
+}

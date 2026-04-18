@@ -1,0 +1,61 @@
+{
+  "id": "autosure-openclaw-pack",
+  "version": "2.1.0-beta.2",
+  "displayName": "Autosure for OpenClaw",
+  "summary": "Skill + vendored plugins + optional userscript capsule + native control-ui fallback: bounded auto-resume, circuit governance, dialable success-loop with idle grace, 30-line phrase pool, one-command install.",
+  "components": {
+    "skill": {
+      "path": ".",
+      "entry": "SKILL.md"
+    },
+    "plugins": {
+      "autosure-resume": {
+        "source": "vendor/autosure-resume",
+        "installTarget": "workspace/plugins/autosure-resume",
+        "role": "primary",
+        "capabilities": [
+          "failure_resume",
+          "loop_idle_inject",
+          "dedupe",
+          "circuit_breaker",
+          "autosure_demo"
+        ]
+      },
+      "auto-resume-lite": {
+        "source": "vendor/auto-resume-lite",
+        "installTarget": "workspace/plugins/auto-resume-lite",
+        "legacyInstallTargets": ["workspace/plugins/openclaw-auto-resume-lite"],
+        "role": "optional_minimal",
+        "mutuallyExclusiveWith": ["autosure-resume"]
+      }
+    },
+    "uiCapsule": {
+      "kind": "userscript",
+      "source": "ui-capsule/repair-pack/autosure-capsule.user.js",
+      "selectors": "ui-capsule/repair-pack/selectors.json",
+      "optional": true,
+      "semantics": {
+        "pause": "/autosure stop"
+      }
+    },
+    "nativeFallback": {
+      "kind": "control-ui-patch",
+      "source": "ui-capsule/repair-pack/native-control-ui-capsule.js",
+      "installer": "scripts/patch_control_ui.py",
+      "optional": true,
+      "purpose": "Fallback when Tampermonkey installs the userscript but does not execute it on local OpenClaw /chat pages."
+    },
+    "operatorDocs": [
+      "小白使用说明.md",
+      "DEPLOY.md",
+      "docs/ARCHITECTURE.md",
+      "docs/PRD.md",
+      "docs/UI_CAPSULE_SPEC.md",
+      "RELEASE_NOTES.md"
+    ]
+  },
+  "openclaw": {
+    "minAppVersionHint": "2026.4.x",
+    "notes": "Hooks: agent_end, before_dispatch, llm_output, after_tool_call, before_reset. Requires subagent.run for best loop UX."
+  }
+}

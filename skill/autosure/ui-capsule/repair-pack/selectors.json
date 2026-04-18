@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "anchorButtonCandidates": [
+    "button[aria-label*='Refresh']",
+    "button[aria-label*='刷新']",
+    "button.btn"
+  ],
+  "sendButtonCandidates": [
+    "button[aria-label='Send message']",
+    "button[aria-label='Queue message']",
+    "button[title='Send']",
+    "button[title='Queue']"
+  ],
+  "textareaCandidates": [
+    "textarea"
+  ],
+  "fallbackMount": {
+    "position": "fixed",
+    "top": "14px",
+    "right": "16px",
+    "zIndex": 9999
+  }
+}
+

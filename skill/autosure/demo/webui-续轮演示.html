@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Autosure 续轮 · Web UI 可视化演示（模拟）</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --panel: #161b26;
+      --border: #2a3142;
+      --text: #e8ecf4;
+      --muted: #8b95a8;
+      --user-bg: #1e3a5f;
+      --assistant-bg: #222831;
+      --inject-bg: #1a3d2e;
+      --inject-border: #2d6a4f;
+      --accent: #6c9eff;
+      --warn: #e6a23c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+    }
+    header {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0 0 0.35rem;
+    }
+    .sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .banner {
+      font-size: 0.8rem;
+      color: var(--warn);
+      background: rgba(230, 162, 60, 0.08);
+      border: 1px solid rgba(230, 162, 60, 0.35);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    button {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+    button.primary {
+      background: #243554;
+      border-color: #3d5a8a;
+      color: #dbe7ff;
+    }
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    textarea.phrases {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 0.6rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .chat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 320px;
+      max-height: min(62vh, 520px);
+      overflow-y: auto;
+    }
+    .msg {
+      margin-bottom: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      animation: fade 0.35s ease;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .msg .meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0 0.15rem;
+    }
+    .bubble {
+      max-width: 92%;
+      padding: 0.65rem 0.85rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .msg.user .bubble {
+      align-self: flex-end;
+      background: var(--user-bg);
+      border: 1px solid #2a4a73;
+    }
+    .msg.assistant .bubble {
+      align-self: flex-start;
+      background: var(--assistant-bg);
+      border: 1px solid var(--border);
+    }
+    .msg.inject .bubble {
+      align-self: flex-end;
+      background: var(--inject-bg);
+      border: 1px solid var(--inject-border);
+    }
+    .msg.user .meta { text-align: right; }
+    .msg.inject .meta { text-align: right; color: #7dcea0; }
+    footer {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    code { color: var(--accent); font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Autosure 续轮 · Web UI 可视化演示</h1>
+      <p class="sub">这是<strong>独立模拟页</strong>，用来展示「答完一轮 → 自动再发一条用户消息（轮换 <code>发动词.txt</code>）→ 模型继续」的视觉效果；不是 OpenClaw 内置聊天页本身。</p>
+    </header>
+
+    <div class="banner">
+      真实环境：你在 OpenClaw Web 里发 <code>/autosure N</code>，网关加载插件后，由插件触发与这里「自动用户气泡」等价的流程。
+      <strong>更推荐</strong>：在 OpenClaw <strong>真实对话</strong>里发整行 <code>/autosure-demo</code>，由插件在会话内做可视化（见 autosure-resume 插件）。
+    </div>
+
+    <label for="phrases">发动词（一行一条，与 <code>skills/autosure/发动词.txt</code> 规则相同）</label>
+    <textarea id="phrases" class="phrases">继续
+按你的想法继续</textarea>
+
+    <div class="toolbar">
+      <button type="button" class="primary" id="btnPlay">播放演示</button>
+      <button type="button" id="btnReset">清空画面</button>
+      <span class="sub" id="status"></span>
+    </div>
+
+    <div class="chat" id="chat" aria-live="polite"></div>
+
+    <footer>
+      打开方式：在访达中双击本文件，或用浏览器打开该 HTML 路径。若要改演示速度，可编辑本文件中的 <code>STEP_MS</code> 常量。
+    </footer>
+  </div>
+
+  <script>
+    const STEP_MS = 900;
+
+    const chat = document.getElementById("chat");
+    const phrasesEl = document.getElementById("phrases");
+    const btnPlay = document.getElementById("btnPlay");
+    const btnReset = document.getElementById("btnReset");
+    const statusEl = document.getElementById("status");
+
+    function sleep(ms) {
+      return new Promise((r) => setTimeout(r, ms));
+    }
+
+    function parsePhrases(raw) {
+      return raw
+        .split(/\r?\n/)
+        .map((l) => l.trim())
+        .filter((l) => l && !l.startsWith("#"));
+    }
+
+    function addMessage(kind, meta, text) {
+      const wrap = document.createElement("div");
+      wrap.className = `msg ${kind}`;
+      const m = document.createElement("div");
+      m.className = "meta";
+      m.textContent = meta;
+      const b = document.createElement("div");
+      b.className = "bubble";
+      b.textContent = text;
+      wrap.appendChild(m);
+      wrap.appendChild(b);
+      chat.appendChild(wrap);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function runDemo() {
+      const phrases = parsePhrases(phrasesEl.value);
+      if (phrases.length === 0) {
+        statusEl.textContent = "请至少填写一行发动词。";
+        return;
+      }
+
+      btnPlay.disabled = true;
+      statusEl.textContent = "演示进行中…";
+
+      addMessage("user", "你（Web 输入）", "/autosure 3");
+      await sleep(STEP_MS);
+
+      addMessage("assistant", "模型 · 第 1 轮", "（示例）我已根据你的任务完成本轮输出，准备结束本轮。");
+      await sleep(STEP_MS * 1.1);
+
+      for (let i = 0; i < 3; i += 1) {
+        const phrase = phrases[i % phrases.length];
+        addMessage(
+          "inject",
+          "自动续轮（插件注入 · 等价于你又发了一条用户消息）",
+          phrase
+        );
+        await sleep(STEP_MS);
+
+        addMessage(
+          "assistant",
+          `模型 · 第 ${i + 2} 轮`,
+          i < 2
+            ? "（示例）收到。我在上一轮基础上继续推进，并完成又一小步。"
+            : "（示例）最后一轮：收尾说明。若真实环境需更多轮，可调大 /autosure 的数字。"
+        );
+        await sleep(STEP_MS * 1.05);
+      }
+
+      statusEl.textContent = "演示结束。可修改发动词后再次播放。";
+      btnPlay.disabled = false;
+    }
+
+    btnPlay.addEventListener("click", () => {
+      void runDemo();
+    });
+
+    btnReset.addEventListener("click", () => {
+      chat.innerHTML = "";
+      statusEl.textContent = "";
+    });
+  </script>
+</body>
+</html>

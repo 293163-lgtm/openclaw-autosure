@@ -1,0 +1,11 @@
+{
+  "name": "auto-resume-lite",
+  "version": "1.0.0",
+  "description": "Minimal failure-only auto-resume (Autosure skill bundle). Mutually exclusive with autosure-resume.",
+  "type": "module",
+  "openclaw": {
+    "extensions": ["./index.js"]
+  },
+  "license": "MIT",
+  "main": "index.js"
+}

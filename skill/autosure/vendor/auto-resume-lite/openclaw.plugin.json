@@ -1,0 +1,21 @@
+{
+  "id": "auto-resume-lite",
+  "name": "Auto Resume Lite",
+  "description": "Bundled minimal plugin: single-shot resume after failed agent_end only. Do not load together with autosure-resume.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "description": "Master switch (default true when plugin is enabled in entries)"
+      },
+      "cooldownMs": {
+        "type": "integer",
+        "minimum": 3000,
+        "maximum": 600000,
+        "description": "Minimum gap between lite resumes per session (ms)"
+      }
+    }
+  }
+}

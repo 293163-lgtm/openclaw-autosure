@@ -1,0 +1,74 @@
+{
+  "id": "autosure-resume",
+  "name": "Autosure Resume",
+  "description": "Bounded auto-resume with dedupe, circuit breaker, and compression-aware waiting.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean"
+      },
+      "maxAutoResumes": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10
+      },
+      "cooldownMs": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "minCooldownMs": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "maxCooldownMs": {
+        "type": "integer",
+        "minimum": 1000
+      },
+      "compressionWaitMs": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "circuitThreshold": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 20
+      },
+      "circuitOpenMs": {
+        "type": "integer",
+        "minimum": 1000
+      },
+      "halfOpenProbeMax": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5
+      },
+      "dedupeTtlMs": {
+        "type": "integer",
+        "minimum": 1000
+      },
+      "enableNonActionResume": {
+        "type": "boolean"
+      },
+      "commandMaxRounds": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10000000,
+        "description": "解析 /autosure N 时 N 的上限（默认很大，由你自担费用与风险）"
+      },
+      "demoInjectRounds": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "对话内 /autosure-demo 自动注入的「发动词→模型」轮数"
+      },
+      "loopIdleGraceMs": {
+        "type": "integer",
+        "minimum": 1000,
+        "maximum": 300000,
+        "description": "每轮助手结束后等待用户输入的最长时间（毫秒）；超时且无人输入才代发发动词；期间任意用户消息会取消本次代发"
+      }
+    }
+  }
+}
