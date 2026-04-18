@@ -16,7 +16,7 @@ It combines:
 - **optional UI capsule** for direct controls
 - **native fallback** when local userscript execution is unreliable
 
-## 一眼看懂
+## At a glance
 
 ![Autosure control surface](./assets/autosure-control-surface.svg)
 
@@ -24,7 +24,9 @@ It combines:
 
 ## Real interface example
 
-> A real in-product screenshot is still missing and should be added next. The current repo now includes product diagrams, but not yet a captured live Control UI screenshot.
+![Autosure Control UI debug screenshot](./assets/autosure-control-ui-debug.png)
+
+A real screenshot from local OpenClaw Control UI debug mode (`autosureDebug=1`).
 
 ## Why it exists
 

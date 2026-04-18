@@ -24,7 +24,9 @@
 
 ## 真实界面示例
 
-> 当前仓库仍缺一张真实的产品界面截图。现在已经补上了中文解读图，但还没有真正从 live Control UI 捕获的实拍图，这张图应该作为下一步补齐。
+![Autosure Control UI 调试截图](./assets/autosure-control-ui-debug.png)
+
+这是一张来自本地 OpenClaw Control UI debug 模式（`autosureDebug=1`）的真实界面截图。
 
 ## 为什么会有它
 
