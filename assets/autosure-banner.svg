@@ -1,0 +1,33 @@
+<svg width="1600" height="840" viewBox="0 0 1600 840" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">openclaw-autosure banner</title>
+  <desc id="desc">Dark premium banner for Autosure, an OpenClaw skill for safe unattended continuation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1180 220) rotate(90) scale(520 700)">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="840" fill="url(#bg)"/>
+  <rect width="1600" height="840" fill="url(#glow)"/>
+  <g opacity="0.12">
+    <circle cx="1260" cy="180" r="220" fill="#f5d77a"/>
+    <circle cx="1380" cy="620" r="280" fill="#8b5cf6"/>
+  </g>
+  <g transform="translate(110 150)">
+    <text x="0" y="0" fill="#f8fafc" font-size="88" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="700">openclaw-autosure</text>
+    <text x="0" y="78" fill="#d4af37" font-size="32" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="600">Safe unattended continuation for OpenClaw</text>
+    <text x="0" y="150" fill="#cbd5e1" font-size="28" font-family="Inter, Helvetica, Arial, sans-serif">Bounded auto-resume, circuit-governed recovery,</text>
+    <text x="0" y="194" fill="#cbd5e1" font-size="28" font-family="Inter, Helvetica, Arial, sans-serif">and frontstage /autosure continuation with human override.</text>
+  </g>
+  <g transform="translate(112 560)">
+    <rect x="0" y="0" width="220" height="54" rx="27" fill="#111827" stroke="#334155"/>
+    <text x="28" y="35" fill="#f8fafc" font-size="24" font-family="Inter, Helvetica, Arial, sans-serif">OpenClaw Skill</text>
+    <rect x="244" y="0" width="238" height="54" rx="27" fill="#111827" stroke="#5b4a15"/>
+    <text x="272" y="35" fill="#f8fafc" font-size="24" font-family="Inter, Helvetica, Arial, sans-serif">Userscript + Native Fallback</text>
+  </g>
+</svg>

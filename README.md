@@ -1,31 +1,115 @@
 # openclaw-autosure
 
-Self-contained OpenClaw skill for safe unattended continuation: bounded auto-resume, circuit-governed failure recovery, and `/autosure` success-loop controls with an optional UI capsule.
+**English** | [中文](./README.zh-CN.md)
 
-中文说明见：[`skill/autosure/README.md`](skill/autosure/README.md) / [`skill/autosure/小白使用说明.md`](skill/autosure/小白使用说明.md)
+![Autosure banner](./assets/autosure-banner.svg)
 
-## What it is
+**Safe unattended continuation for OpenClaw.**
 
-Autosure is a distributable OpenClaw skill pack for long-running or hands-off sessions that need:
+`openclaw-autosure` is a self-contained OpenClaw skill for operators who want long-running sessions to keep moving **without turning into blind retry spam**.
 
-- verified failure resume instead of blind retries
-- bounded or unlimited `/autosure` continuation loops
-- human override at any time
-- optional userscript UI capsule, with native fallback for local Control UI failure cases
+It combines:
+
+- **failure-aware auto-resume** with circuit breaker and dedupe
+- **bounded or unlimited `/autosure` continuation loops**
+- **human override by default**
+- **optional UI capsule** for direct controls
+- **native fallback** when local userscript execution is unreliable
+
+## Why it exists
+
+Most unattended agent setups fail in one of two ugly ways:
+
+1. they stop too easily and need constant human nudging
+2. they resume too aggressively and create message storms or drift
+
+Autosure is designed to sit in the middle: keep momentum, keep boundaries, keep the human in charge.
+
+## Core capabilities
+
+- **Bounded success-loop control**
+  - `/autosure N` for finite continuation rounds
+  - `/autosure` for unlimited continuation until stopped or interrupted by a human message
+
+- **Failure-safe resume**
+  - resumes only on verified interruption paths
+  - dedupe + cooldown + circuit breaker included
+
+- **Frontstage continuation UX**
+  - current versions support more visible continuation behavior in OpenClaw Control UI
+  - optional userscript UI capsule with native fallback repair path
+
+- **Operator tooling**
+  - install scripts
+  - repair/doctor tools
+  - runtime validators
+  - deployment and handoff docs
+
+## What makes it different
+
+Unlike generic “keep going” hacks, Autosure is built around **bounded continuation** and **operator safety**:
+
+- it does **not** assume infinite retries are acceptable
+- it does **not** hide the stop path
+- it does **not** depend on one fragile UI layer
+- it treats recovery, visibility, and control as one product surface
+
+## Scope and boundaries
+
+Autosure is for **OpenClaw operators**.
+
+It is not:
+- a generic browser extension
+- a universal agent runner
+- a replacement for human supervision on risky tasks
+
+Default product route:
+- **userscript UI capsule**
+
+Practical local exception:
+- on machines where userscripts do not execute reliably on local OpenClaw Control UI, the **native fallback patch** is the intended repair route
 
 ## Install
 
-Use the packaged skill from `dist/autosure.skill`, or copy `skill/autosure/` into your OpenClaw workspace and follow the install steps in:
+### Option A — packaged release
+Use the packaged artifact in:
 
-- `skill/autosure/DEPLOY.md`
-- `skill/autosure/HANDOFF_FOR_AGENT.md`
+- [`dist/autosure.skill`](./dist/autosure.skill)
 
-## Included
+### Option B — source install
+Copy [`skill/autosure/`](./skill/autosure/) into your OpenClaw workspace, then follow:
 
-- packaged release: `dist/autosure.skill`
-- source skill: `skill/autosure/`
-- release notes: `releases/v0.1.0.md`
+- [`skill/autosure/DEPLOY.md`](./skill/autosure/DEPLOY.md)
+- [`skill/autosure/HANDOFF_FOR_AGENT.md`](./skill/autosure/HANDOFF_FOR_AGENT.md)
 
-## Version
+## Example prompts / commands
 
-Initial public release: `v0.1.0`
+- `/autosure`
+- `/autosure 3`
+- `/autosure 9`
+- `/autosure status`
+- `/autosure stop`
+
+Typical use case:
+
+> Run this task with autosure, keep going for 3 more rounds unless I interrupt.
+
+## Repository layout
+
+- `dist/` — packaged `.skill` artifact
+- `skill/autosure/` — source skill
+- `releases/` — release notes
+- `assets/` — public repo assets
+
+## Version posture
+
+This repository is being published as:
+
+- **v0.1.0** — first public useful release
+
+The implementation is already field-tested, but the public repo surface is intentionally conservative for the first release.
+
+## Release links
+
+- Release notes: [`releases/v0.1.0.md`](./releases/v0.1.0.md)
+- Packaged artifact: [`dist/autosure.skill`](./dist/autosure.skill)
