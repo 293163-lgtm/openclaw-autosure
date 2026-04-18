@@ -16,6 +16,12 @@ It combines:
 - **optional UI capsule** for direct controls
 - **native fallback** when local userscript execution is unreliable
 
+## At a glance
+
+![Autosure control surface](./assets/autosure-control-surface.svg)
+
+![Autosure continuation sequence](./assets/autosure-sequence.svg)
+
 ## Why it exists
 
 Most unattended agent setups fail in one of two ugly ways:

@@ -16,6 +16,12 @@
 - **可选 UI 胶囊**
 - **当 userscript 在本机失效时的 native fallback 修复路径**
 
+## 一眼看懂
+
+![Autosure control surface](./assets/autosure-control-surface.svg)
+
+![Autosure continuation sequence](./assets/autosure-sequence.svg)
+
 ## 为什么会有它
 
 很多无人值守方案最后都会翻车在两个方向：
