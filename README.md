@@ -24,9 +24,9 @@ It combines:
 
 ## Real interface example
 
-![Autosure Control UI debug screenshot](./assets/autosure-control-ui-debug.png)
+![Autosure Control UI debug screenshot](./assets/autosure-control-ui-debug.jpg)
 
-A real screenshot from local OpenClaw Control UI debug mode (`autosureDebug=1`).
+A real screenshot from local OpenClaw Control UI showing the Autosure capsule mounted near Refresh.
 
 ## Why it exists
 

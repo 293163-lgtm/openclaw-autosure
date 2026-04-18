@@ -24,9 +24,9 @@
 
 ## 真实界面示例
 
-![Autosure Control UI 调试截图](./assets/autosure-control-ui-debug.png)
+![Autosure Control UI 调试截图](./assets/autosure-control-ui-debug.jpg)
 
-这是一张来自本地 OpenClaw Control UI debug 模式（`autosureDebug=1`）的真实界面截图。
+这是一张真实的 OpenClaw Control UI 界面截图，展示了挂在 Refresh 附近的 Autosure 胶囊。
 
 ## 为什么会有它
 
