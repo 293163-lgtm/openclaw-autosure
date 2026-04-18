@@ -1,0 +1,57 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Autosure 控制面示意图</title>
+  <desc id="desc">展示 Autosure 的控制面、两条 UI 路线，以及操作者优先的控制模型。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="980" fill="url(#bg)"/>
+  <text x="90" y="100" fill="#f8fafc" font-size="58" font-family="Inter, Arial, sans-serif" font-weight="700">Autosure 控制面</text>
+  <text x="90" y="148" fill="#cbd5e1" font-size="26" font-family="Inter, Arial, sans-serif">一个产品面，两条 UI 路线，一个始终以操作者为中心的控制模型。</text>
+
+  <rect x="90" y="220" width="460" height="520" rx="28" fill="#0f172a" stroke="#334155"/>
+  <text x="128" y="280" fill="#f8fafc" font-size="34" font-family="Inter, Arial, sans-serif" font-weight="700">操作者</text>
+  <text x="128" y="332" fill="#cbd5e1" font-size="24" font-family="Inter, Arial, sans-serif">决定允许多少续跑，以及何时接管。</text>
+  <rect x="128" y="382" width="380" height="64" rx="18" fill="#111827" stroke="#475569"/>
+  <text x="156" y="422" fill="#f8fafc" font-size="28" font-family="JetBrains Mono, monospace">/autosure 3</text>
+  <rect x="128" y="466" width="380" height="64" rx="18" fill="#111827" stroke="#475569"/>
+  <text x="156" y="506" fill="#f8fafc" font-size="28" font-family="JetBrains Mono, monospace">/autosure status</text>
+  <rect x="128" y="550" width="380" height="64" rx="18" fill="#111827" stroke="#7f1d1d"/>
+  <text x="156" y="590" fill="#fecaca" font-size="28" font-family="JetBrains Mono, monospace">/autosure stop</text>
+  <text x="128" y="664" fill="#d4af37" font-size="22" font-family="Inter, Arial, sans-serif">人类接管永远优先。</text>
+
+  <rect x="620" y="220" width="420" height="240" rx="28" fill="#0f172a" stroke="#334155"/>
+  <text x="658" y="280" fill="#f8fafc" font-size="34" font-family="Inter, Arial, sans-serif" font-weight="700">UI 路线 A</text>
+  <text x="658" y="326" fill="#d4af37" font-size="28" font-family="Inter, Arial, sans-serif">Userscript 胶囊</text>
+  <text x="658" y="374" fill="#cbd5e1" font-size="22" font-family="Inter, Arial, sans-serif">产品默认路线，用于在 chat UI 里直接控制。</text>
+  <text x="658" y="412" fill="#cbd5e1" font-size="22" font-family="Inter, Arial, sans-serif">默认收起，挂在 Refresh 附近，向下展开。</text>
+
+  <rect x="620" y="500" width="420" height="240" rx="28" fill="#0f172a" stroke="#334155"/>
+  <text x="658" y="560" fill="#f8fafc" font-size="34" font-family="Inter, Arial, sans-serif" font-weight="700">UI 路线 B</text>
+  <text x="658" y="606" fill="#d4af37" font-size="28" font-family="Inter, Arial, sans-serif">Native fallback</text>
+  <text x="658" y="654" fill="#cbd5e1" font-size="22" font-family="Inter, Arial, sans-serif">当本地 userscript 执行不稳定时的修复路线。</text>
+  <text x="658" y="692" fill="#cbd5e1" font-size="22" font-family="Inter, Arial, sans-serif">控制模型相同，只是挂载路径不同。</text>
+
+  <rect x="1110" y="220" width="400" height="520" rx="28" fill="#0f172a" stroke="#334155"/>
+  <text x="1148" y="280" fill="#f8fafc" font-size="34" font-family="Inter, Arial, sans-serif" font-weight="700">Autosure runtime</text>
+  <text x="1148" y="332" fill="#cbd5e1" font-size="24" font-family="Inter, Arial, sans-serif">有边界的续跑、可判断的恢复、带熔断的治理。</text>
+  <circle cx="1168" cy="394" r="8" fill="#22c55e"/>
+  <text x="1190" y="402" fill="#f8fafc" font-size="24" font-family="Inter, Arial, sans-serif">有限或不限轮次的推进</text>
+  <circle cx="1168" cy="450" r="8" fill="#22c55e"/>
+  <text x="1190" y="458" fill="#f8fafc" font-size="24" font-family="Inter, Arial, sans-serif">去重、冷却、熔断</text>
+  <circle cx="1168" cy="506" r="8" fill="#22c55e"/>
+  <text x="1190" y="514" fill="#f8fafc" font-size="24" font-family="Inter, Arial, sans-serif">前台续跑可见性</text>
+  <circle cx="1168" cy="562" r="8" fill="#22c55e"/>
+  <text x="1190" y="570" fill="#f8fafc" font-size="24" font-family="Inter, Arial, sans-serif">停止语义始终明确</text>
+  <circle cx="1168" cy="618" r="8" fill="#22c55e"/>
+  <text x="1190" y="626" fill="#f8fafc" font-size="24" font-family="Inter, Arial, sans-serif">repair / doctor / validator 工具链</text>
+
+  <path d="M550 480 C590 480, 590 480, 620 360" stroke="#64748b" stroke-width="5" fill="none"/>
+  <path d="M550 480 C590 480, 590 480, 620 620" stroke="#64748b" stroke-width="5" fill="none"/>
+  <path d="M1040 360 C1070 360, 1080 360, 1110 360" stroke="#64748b" stroke-width="5" fill="none"/>
+  <path d="M1040 620 C1070 620, 1080 620, 1110 620" stroke="#64748b" stroke-width="5" fill="none"/>
+
+  <text x="90" y="880" fill="#94a3b8" font-size="22" font-family="Inter, Arial, sans-serif">默认路线：userscript。 本地修复路线：native fallback。 核心原则：保持推进，但不失去操作者控制。</text>
+</svg>

@@ -16,11 +16,15 @@ It combines:
 - **optional UI capsule** for direct controls
 - **native fallback** when local userscript execution is unreliable
 
-## At a glance
+## 一眼看懂
 
 ![Autosure control surface](./assets/autosure-control-surface.svg)
 
 ![Autosure continuation sequence](./assets/autosure-sequence.svg)
+
+## Real interface example
+
+> A real in-product screenshot is still missing and should be added next. The current repo now includes product diagrams, but not yet a captured live Control UI screenshot.
 
 ## Why it exists
 

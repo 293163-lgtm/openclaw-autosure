@@ -18,9 +18,13 @@
 
 ## 一眼看懂
 
-![Autosure control surface](./assets/autosure-control-surface.svg)
+![Autosure 控制面](./assets/autosure-control-surface-zh.svg)
 
-![Autosure continuation sequence](./assets/autosure-sequence.svg)
+![Autosure 续跑序列](./assets/autosure-sequence-zh.svg)
+
+## 真实界面示例
+
+> 当前仓库仍缺一张真实的产品界面截图。现在已经补上了中文解读图，但还没有真正从 live Control UI 捕获的实拍图，这张图应该作为下一步补齐。
 
 ## 为什么会有它
 
