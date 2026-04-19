@@ -16,6 +16,18 @@
 - **可选 UI 胶囊**
 - **当 userscript 在本机失效时的 native fallback 修复路径**
 
+## 20 秒产品短片
+
+[![Autosure 20 秒产品短片](./assets/demo/autosure-promo-20s-poster.jpg)](./assets/demo/autosure-promo-20s.mp4)
+
+这条 20 秒短片更适合放在这里，因为它不是施工记录，而是直接把 Autosure 的产品情绪讲清楚：
+
+- **推进感被接住**
+- **人类始终掌控**
+- **正向、高级、科技感**
+
+> 点击上面的封面图，可以直接在 GitHub 打开 MP4。
+
 ## 一眼看懂
 
 ![Autosure 控制面](./assets/autosure-control-surface-zh.svg)

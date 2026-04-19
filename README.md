@@ -16,6 +16,14 @@ It combines:
 - **optional UI capsule** for direct controls
 - **native fallback** when local userscript execution is unreliable
 
+## 20-second product trailer
+
+[![Autosure 20-second trailer](./assets/demo/autosure-promo-20s-poster.jpg)](./assets/demo/autosure-promo-20s.mp4)
+
+A short promo cut that shows the intended product emotion more clearly: **momentum preserved, human still in control, premium positive tech tone**.
+
+> Click the poster above to open the MP4 directly on GitHub.
+
 ## At a glance
 
 ![Autosure control surface](./assets/autosure-control-surface.svg)
