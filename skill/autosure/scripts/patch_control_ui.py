@@ -2,41 +2,55 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 from pathlib import Path
 
-SNIPPET_START = '    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>'
+MODULE_SCRIPT_RE = re.compile(r'^\s*<script type="module" crossorigin src="\./assets/index-[^"]+\.js"></script>$', re.MULTILINE)
 MARKER_START = '    <script>\n      (function () {\n        var ROOT_ID = "autosure-native-capsule";'
 
 
 def default_control_ui_index() -> Path:
-    return Path.home() / '.volta' / 'tools' / 'image' / 'packages' / 'openclaw' / 'lib' / 'node_modules' / 'openclaw' / 'dist' / 'control-ui' / 'index.html'
+    candidates = [
+        Path.home() / '.volta' / 'tools' / 'image' / 'packages' / 'openclaw' / 'lib' / 'node_modules' / 'openclaw' / 'dist' / 'control-ui' / 'index.html',
+        Path('/opt/homebrew/lib/node_modules/openclaw/dist/control-ui/index.html'),
+        Path('/usr/local/lib/node_modules/openclaw/dist/control-ui/index.html'),
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
 
 
-def snippet_text(js_text: str) -> str:
+def find_module_script_tag(html: str) -> str:
+    match = MODULE_SCRIPT_RE.search(html)
+    if not match:
+        raise RuntimeError('Cannot find control-ui module script tag')
+    return match.group(0)
+
+
+def snippet_text(js_text: str, module_script_tag: str) -> str:
     indented = '\n'.join('      ' + line if line else '' for line in js_text.rstrip().splitlines())
     return (
         '    <script>\n'
         f'{indented}\n'
         '    </script>\n'
-        '    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>'
+        f'{module_script_tag}'
     )
 
 
 def install(index_path: Path, js_path: Path, dry_run: bool, force: bool = False) -> int:
     html = index_path.read_text(encoding='utf-8')
+    module_script_tag = find_module_script_tag(html)
     if MARKER_START in html:
         if not force:
             print(f'Autosure native capsule already installed: {index_path}')
             return 0
         start = html.index(MARKER_START)
-        end = html.index('    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>', start)
-        html = html[:start] + '    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>' + html[end + len('    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>'):]
+        end = html.index(module_script_tag, start)
+        html = html[:start] + module_script_tag + html[end + len(module_script_tag):]
     js_text = js_path.read_text(encoding='utf-8')
-    marker = SNIPPET_START
-    if marker not in html:
-        raise RuntimeError(f'Cannot find control-ui module script tag in: {index_path}')
-    patched = html.replace(marker, snippet_text(js_text), 1)
+    patched = html.replace(module_script_tag, snippet_text(js_text, module_script_tag), 1)
     backup = index_path.with_suffix(index_path.suffix + '.autosure.bak')
     if dry_run:
         print(f'[dry-run] would backup {index_path} -> {backup}')
@@ -59,9 +73,10 @@ def uninstall(index_path: Path, dry_run: bool) -> int:
     if MARKER_START not in html:
         print(f'Autosure native capsule not present: {index_path}')
         return 0
+    module_script_tag = find_module_script_tag(html)
     start = html.index('    <script>\n      (function () {\n        var ROOT_ID = "autosure-native-capsule";')
-    end = html.index('    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>', start)
-    patched = html[:start] + '    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>' + html[end + len('    <script type="module" crossorigin src="./assets/index-D0pCc5YA.js"></script>'):]
+    end = html.index(module_script_tag, start)
+    patched = html[:start] + module_script_tag + html[end + len(module_script_tag):]
     backup = index_path.with_suffix(index_path.suffix + '.autosure.remove.bak')
     if dry_run:
         print(f'[dry-run] would backup {index_path} -> {backup}')

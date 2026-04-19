@@ -38,20 +38,28 @@ def primary_profile_root() -> Path:
 
 
 def default_control_ui_index() -> Path:
-    return (
-        Path.home()
-        / ".volta"
-        / "tools"
-        / "image"
-        / "packages"
-        / "openclaw"
-        / "lib"
-        / "node_modules"
-        / "openclaw"
-        / "dist"
-        / "control-ui"
-        / "index.html"
-    ).resolve()
+    candidates = [
+        (
+            Path.home()
+            / ".volta"
+            / "tools"
+            / "image"
+            / "packages"
+            / "openclaw"
+            / "lib"
+            / "node_modules"
+            / "openclaw"
+            / "dist"
+            / "control-ui"
+            / "index.html"
+        ).resolve(),
+        Path("/opt/homebrew/lib/node_modules/openclaw/dist/control-ui/index.html").resolve(),
+        Path("/usr/local/lib/node_modules/openclaw/dist/control-ui/index.html").resolve(),
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
 
 
 def userscript_source() -> Path:
